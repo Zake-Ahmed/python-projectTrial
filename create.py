@@ -7,8 +7,12 @@ sample_todo = ToDo(
     task_name = "Test ToDo",
     completed = False
 )
-rootUser = Users(userName="root",firstName="root",lastName="root")
-rootPost= Posts(massage="root")
-
 db.session.add(sample_todo)
+db.session.commit()
+rootUser = Users(userName="root",firstName="root",lastName="root")
+db.session.add(rootUser)
+db.session.commit()
+rootPost= Posts(massage="root" ,userID=1)
+
+db.session.add(rootPost)
 db.session.commit()
