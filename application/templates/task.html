@@ -2,10 +2,15 @@
 {% block body %} 
 {% for todo in ToDo %}
 <p> ID: {{todo.id}} </p>
-<p> Task: {{ todo.task_name }} </p>
-<p> Completed: {{ todo.completed }} </p>
-<form action="{{ url_for('delete', t_name = todo.task_name) }}">
+<p> UserID: {{todo.userID}}</p>
+<p> Massage: {{ todo.message }} </p>
+<p> Likes: {{ todo.likes }} </p>
+<form action="{{ url_for('delete', t_name = todo.message) }}">
 <button type="Delete">Delete Task</button> 
+</form>
+
+<form action="{{ url_for('like', t_name = todo.message) }}">
+<button type="Like">Like</button> 
 </form>
 {% endfor %}
 {% endblock body%}

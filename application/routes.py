@@ -1,17 +1,19 @@
 from application import app, db
-from application.models import ToDo
-from application.forms import TaskForm 
+from application.models import ToDo,Users,Posts
+from application.forms import TaskForm ,PostForm,UserForm
 from flask import Flask, redirect, url_for, render_template, request
 
 
 @app.route('/')
 def index():
-    todo = ToDo.query.all()
+    posts = Posts.query.all()
+  
+
     # empstr = ""
     # for t_name in todo:
     #     empstr += f'{t_name.id} {t_name.task_name} {t_name.completed} <br>'
     # return empstr
-    return render_template("task.html", ToDo=todo)
+    return render_template("task.html", ToDo=posts)
 
 @app.route('/about')
 def about():
@@ -28,13 +30,16 @@ def home():
 
 @app.route('/add', methods=['GET', 'POST'])
 def add():
-    form = TaskForm()
+    form = PostForm()
+    form.user.choices=[(users.id,users.userName) for users in Users.query.all()]
     if request.method == 'POST':
         if form.validate_on_submit():
-            taskData = ToDo(
-                task_name = form.task_name.data,
-                completed = form.completed.data
+            taskData = Posts(
+                message = form.message.data,
+                userID = form.user.data
+                
             )
+            
             db.session.add(taskData)
             db.session.commit()
             return redirect(url_for('index'))
@@ -49,14 +54,21 @@ def complete(id):
 
 @app.route('/update/<int:id>/<newtask>')
 def update(id, newtask):
-    todo = ToDo.query.get(id)
-    todo.task_name = newtask
+    todo = Posts.query.get(id)
+    todo.message = newtask
     db.session.commit()
     return redirect(url_for('index'))
 
 @app.route('/delete/<t_name>')
 def delete(t_name):
-    task_del = ToDo.query.filter_by(task_name=t_name).first()
+    task_del = Posts.query.filter_by(message=t_name).first()
     db.session.delete(task_del)
+    db.session.commit()
+    return redirect(url_for('index'))
+
+@app.route('/like/<t_name>')
+def like(t_name):
+    task_del = Posts.query.filter_by(message=t_name).first()
+    task_del.likes +=1
     db.session.commit()
     return redirect(url_for('index'))

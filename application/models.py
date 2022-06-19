@@ -10,7 +10,7 @@ class Users(db.Model):
     userName = db.Column(db.String(30))
     firstName = db.Column(db.String(30),nullable = True)
     lastName = db.Column(db.String(30),nullable = True)
-    post=db.relationship('Post', backref='users')
+    post=db.relationship('Posts', backref='post')
 
 
 
