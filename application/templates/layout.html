@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+        body {
+          margin: 0;
+          font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        .topnav {
+          overflow: hidden;
+          background-color: rgb(255, 255, 255);
+        }
+        
+        .topnav a {
+          float: left;
+          color: #f80b0b;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+          font-size: 17px;
+        }
+        
+        .topnav a:hover {
+          background-color: rgb(218, 10, 10);
+          color: black;
+        }
+        
+        .topnav a.active {
+          background-color: #dd2d16;
+          color: rgb(236, 83, 12);
+        }
+        </style>
+        </head>
+        <body>
+            <div class="topnav">
+        <a href= "{{url_for('home')}}"><img src="https://o.remove.bg/downloads/1e3d64b2-a3bb-42fa-aeeb-8cebcd00700c/download-removebg-preview.png" alt="Todo-logo" style="max-width: 150px; max-height: 50px"> </img></a> 
+        <a href="{{ url_for('index') }}">Tasks</a>
+        <a href="{{ url_for('about') }}">About</a>
+        <a href="{{ url_for('add') }}">Add Tasks</a>
+    </div>
+        <body>
+        {% block body %}
+        {% endblock body %}
+    </body>
+ </html>
