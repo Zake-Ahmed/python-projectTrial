@@ -17,6 +17,6 @@ class Users(db.Model):
 class Posts(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     message= db.Column(db.String(280),nullable = False)
-    likes = db.Column(db.Integer,nullable = True)
+    likes = db.Column(db.Integer, default=0)
     userID = db.Column(db.Integer , db.ForeignKey(Users.id), nullable=False)
  
