@@ -1,8 +1,16 @@
 {% extends "layout.html" %}
 {% block body %} 
+<div class="content">
 {% for todo in ToDo %}
+
+<div class="post">
 <p> ID: {{todo.id}} </p>
-<p> UserID: {{todo.userID}}</p>
+<p class="title">
+    <a href="#">
+        {{ todo.post.userName }}
+    </a>
+</p>
+</b>
 <p> Massage: {{ todo.message }} </p>
 <p> Likes: {{ todo.likes }} </p>
 <form action="{{ url_for('delete', t_name = todo.message) }}">
@@ -12,5 +20,7 @@
 <form action="{{ url_for('like', t_name = todo.message) }}">
 <button type="Like">Like</button> 
 </form>
+</div>
 {% endfor %}
+</div>
 {% endblock body%}
