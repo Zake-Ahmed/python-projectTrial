@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+<head> 
+    <title> Edit Tasks </title>
+</head>
+{% block body %}
+
+<p>Old Message: {{todo.message}}</p>
+<div class="content">
+<div class="form">
+    <form method="POST", action="" class="form1">
+        {{ form.hidden_tag() }}
+        <br>
+        {{ form.message.label }} {{ form.message }}
+        <br>
+        EDIT:{{ form.submit }}
+        
+    </form>
+</div>
+</div>
+
+{% endblock body %}
+

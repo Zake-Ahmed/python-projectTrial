@@ -7,20 +7,23 @@
 <p> ID: {{todo.id}} </p>
 <p class="title">
     <a href="#">
-        {{ todo.post.userName }}
+    User:{{ todo.post.userName }}
     </a>
 </p>
 </b>
-<p> Massage: {{ todo.message }} </p>
+<p>{{ todo.message }} </p>
 <p> Likes: {{ todo.likes }} </p>
-<form action="{{ url_for('delete', t_name = todo.message) }}">
-<button type="Delete">Delete Task</button> 
+
+<div class="center">
+<form action="{{ url_for('delete', t_name = todo.message) }}"class="form1">
+<button type="Delete"class="submit2">Delete Task</button> 
 </form>
 
-<form action="{{ url_for('like', t_name = todo.message) }}">
-<button type="Like">Like</button> 
-</form>
-</div>
+<form action="{{ url_for('like', id = todo.id) }}" class="form1">
+<button type="Like" class="submit1">Like</button> </form>
+<form action="{{ url_for('update', id = todo.id) }}"class="form1">
+    <button type="Edit" class="submit3">Edit</button> </form>
+</div></div>
 {% endfor %}
 </div>
 {% endblock body%}

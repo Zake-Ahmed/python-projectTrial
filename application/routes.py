@@ -52,12 +52,17 @@ def complete(id):
     db.session.commit()
     return redirect(url_for('index'))
 
-@app.route('/update/<int:id>/<newtask>')
-def update(id, newtask):
+@app.route('/update/<id>', methods=['GET', 'POST'])
+def update(id):
+    form = PostForm()
     todo = Posts.query.get(id)
-    todo.message = newtask
-    db.session.commit()
-    return redirect(url_for('index'))
+    if request.method == 'POST':
+        todo.message = form.message.data
+            
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('update.html', todo=todo,form=form)
+
 
 @app.route('/delete/<t_name>')
 def delete(t_name):
@@ -66,9 +71,9 @@ def delete(t_name):
     db.session.commit()
     return redirect(url_for('index'))
 
-@app.route('/like/<t_name>')
-def like(t_name):
-    task_del = Posts.query.filter_by(message=t_name).first()
+@app.route('/like/<id>')
+def like(id):
+    task_del = Posts.query.get(id)
     task_del.likes +=1
     db.session.commit()
     return redirect(url_for('index'))
