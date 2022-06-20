@@ -6,11 +6,11 @@
 <div class="form">
     <form method="POST", action="">
         {{ form.hidden_tag() }}
-        {{ form.userName.label }} {{ form.userName}}
+       <p>{{ form.userName.label }} {{ form.userName}}</p>
         <br>
-        {{ form.firstName.label }} {{ form.firstName }}
+       <p>{{ form.firstName.label }} {{ form.firstName }}</p>
         <br>
-        {{ form.lastName.label }} {{ form.lastName }}
+        <p>{{ form.lastName.label }} {{ form.lastName }}</p>
         <br>
         {{ form.submit }}
     </form>
