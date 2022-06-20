@@ -56,12 +56,23 @@ def complete(id):
 def update(id):
     form = PostForm()
     todo = Posts.query.get(id)
-    if request.method == 'POST':
+
+    if form.validate_on_submit():
         todo.message = form.message.data
             
         db.session.commit()
         return redirect(url_for('index'))
-    return render_template('update.html', todo=todo,form=form)
+    elif request.method == 'GET':
+        form.message.data = todo.message
+        return render_template('update.html', todo=todo,form=form)
+    elif request.method == 'POST':
+        todo.message = form.message.data
+            
+        db.session.commit()
+        return redirect(url_for('index'))
+
+
+
 
 
 @app.route('/delete/<t_name>')
@@ -77,3 +88,27 @@ def like(id):
     task_del.likes +=1
     db.session.commit()
     return redirect(url_for('index'))
+@app.route('/dislike/<id>')
+def dislike(id):
+    task_del = Posts.query.get(id)
+    task_del.likes -=1
+    db.session.commit()
+    return redirect(url_for('index'))
+
+@app.route('/addUser', methods=['GET', 'POST'])
+def addUser():
+    form = UserForm()
+
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            taskData = Users(
+                userName = form.userName.data,
+                firstName = form.firstName.data,
+                lastName = form.lastName.data
+                
+            )
+            
+            db.session.add(taskData)
+            db.session.commit()
+            return redirect(url_for('index'))
+    return render_template('addUser.html', form=form)
