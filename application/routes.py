@@ -4,7 +4,7 @@ from application.forms import TaskForm ,PostForm,UserForm
 from flask import Flask, redirect, url_for, render_template, request
 
 
-@app.route('/')
+@app.route('/index')
 def index():
     posts = Posts.query.all()
   
@@ -18,7 +18,7 @@ def index():
 @app.route('/about')
 def about():
     return render_template("about.html")
-@app.route('/home')
+@app.route('/')
 def home():
     return render_template("home.html")
 # @app.route('/add/<t_name>')
@@ -110,8 +110,8 @@ def addUser():
             User=Users.query.all()
             for users in User:
                 if users.userName==form.userName.data:
-                    form = UserForm()
-                    return render_template('addUser.html', form=form , error="User name already taken pick another one :)")
+                    form1 = UserForm()
+                    return render_template('addUser.html', form=form1 , error="User name already taken pick another one :)")
 
             
             db.session.add(taskData)
