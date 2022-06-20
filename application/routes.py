@@ -112,3 +112,16 @@ def addUser():
             db.session.commit()
             return redirect(url_for('index'))
     return render_template('addUser.html', form=form)
+
+
+@app.route('/user/<id>')
+def user(id):
+    posts = Posts.query.filter_by(userID=id)
+    userName=Users.query.filter_by(id=id).first()
+  
+
+    # empstr = ""
+    # for t_name in todo:
+    #     empstr += f'{t_name.id} {t_name.task_name} {t_name.completed} <br>'
+    # return empstr
+    return render_template("user.html", ToDo=posts,username=userName.userName,id=id)

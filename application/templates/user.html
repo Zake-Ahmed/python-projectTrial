@@ -1,12 +1,15 @@
 {% extends "layout.html" %}
 {% block body %} 
+<p class="title1"> 
+    <a href="#">{{username}}'s Posts </a></p>
+
 <div class="content">
 {% for todo in ToDo %}
 
 <div class="post">
 <p> ID: {{todo.id}} </p>
 <p class="title">
-    <a href="{{ url_for('user', id = todo.post.id) }}">
+    <a href="#">
     User:{{ todo.post.userName }}
     </a>
 </p>
