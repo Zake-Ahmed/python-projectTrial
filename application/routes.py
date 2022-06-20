@@ -107,11 +107,17 @@ def addUser():
                 lastName = form.lastName.data
                 
             )
+            User=Users.query.all()
+            for users in User:
+                if users.userName==form.userName.data:
+                    form = UserForm()
+                    return render_template('addUser.html', form=form , error="User name already taken pick another one :)")
+
             
             db.session.add(taskData)
             db.session.commit()
             return redirect(url_for('index'))
-    return render_template('addUser.html', form=form)
+    return render_template('addUser.html', form=form,error="")
 
 
 @app.route('/user/<id>')
