@@ -6,9 +6,9 @@
 <div class="form">
     <form method="POST", action="">
         {{ form.hidden_tag() }}
-        {{ form.user.label }} {{ form.user}}
+        <p>{{ form.user.label }} {{ form.user}}</p>
         <br>
-        <textarea name="message" rows="10" cols="30" ></textarea>
+        <p>{{ form.message.label }} {{ form.message }}</p>
         
         <br>
         {{ form.submit }}
