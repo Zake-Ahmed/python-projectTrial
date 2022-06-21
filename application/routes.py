@@ -109,6 +109,7 @@ def dislike(id):
 @app.route('/addUser', methods=['GET', 'POST'])
 def addUser():
     form = UserForm()
+    User=Users.query.all()
 
     if request.method == 'POST':
         if form.validate_on_submit():
@@ -118,7 +119,7 @@ def addUser():
                 lastName = form.lastName.data
                 
             )
-            User=Users.query.all()
+            
             for users in User:
                 if users.userName==form.userName.data:
                     form1 = UserForm()
@@ -127,7 +128,7 @@ def addUser():
             
             db.session.add(taskData)
             db.session.commit()
-            return redirect(url_for('index'))
+            return redirect(url_for('indexU'))
     return render_template('addUser.html', form=form,error="")
 
 
@@ -146,6 +147,11 @@ def user(id):
 @app.route('/deleteU/<id>')
 def deleteU(id):
     task_del =Users.query.get(id)
+    posts= Posts.query.filter_by(userID=id)
+    for post in posts:
+        db.session.delete(post)
+        db.session.commit()
+
     db.session.delete(task_del)
     db.session.commit()
     return redirect(url_for('indexU'))
