@@ -15,6 +15,17 @@ def index():
     # return empstr
     return render_template("task.html", ToDo=posts)
 
+@app.route('/indexU')
+def indexU():
+    posts = Users.query.all()
+  
+
+    # empstr = ""
+    # for t_name in todo:
+    #     empstr += f'{t_name.id} {t_name.task_name} {t_name.completed} <br>'
+    # return empstr
+    return render_template("userList.html", ToDo=posts)
+
 @app.route('/about')
 def about():
     return render_template("about.html")
@@ -75,9 +86,9 @@ def update(id):
 
 
 
-@app.route('/delete/<t_name>')
-def delete(t_name):
-    task_del = Posts.query.filter_by(message=t_name).first()
+@app.route('/delete/<id>')
+def delete(id):
+    task_del =Posts.query.get(id)
     db.session.delete(task_del)
     db.session.commit()
     return redirect(url_for('index'))
@@ -131,3 +142,36 @@ def user(id):
     #     empstr += f'{t_name.id} {t_name.task_name} {t_name.completed} <br>'
     # return empstr
     return render_template("user.html", ToDo=posts,username=userName.userName,id=id)
+
+@app.route('/deleteU/<id>')
+def deleteU(id):
+    task_del =Users.query.get(id)
+    db.session.delete(task_del)
+    db.session.commit()
+    return redirect(url_for('indexU'))
+
+
+@app.route('/updateU/<id>', methods=['GET', 'POST'])
+def updateU(id):
+    form = UserForm()
+    todo = Users.query.get(id)
+    User=Users.query.all()
+
+    if form.validate_on_submit():
+        todo.firstName = form.firstName.data
+        todo.lastName = form.lastName.data
+
+            
+        db.session.commit()
+        return redirect(url_for('indexU'))
+    elif request.method == 'GET':
+        form.firstName.data = todo.firstName 
+        form.lastName.data = todo.lastName 
+            
+        return render_template('updateU.html', todo=todo,form=form)
+    elif request.method == 'POST':
+        todo.firstName = form.firstName.data
+        todo.lastName = form.lastName.data
+            
+        db.session.commit()
+        return redirect(url_for('indexU'))
