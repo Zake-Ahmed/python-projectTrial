@@ -15,6 +15,6 @@ class UserForm(FlaskForm):
     submit= SubmitField("Submit")
 
 class PostForm(FlaskForm):
-    user = SelectField("user" ,choices=[])
-    message = StringField("message", validators=[DataRequired(),Length(max=280)])
+    user = SelectField("User" ,choices=[])
+    message = StringField("Message", validators=[DataRequired(),Length(max=280)])
     submit= SubmitField("Submit")
