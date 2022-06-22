@@ -1,6 +1,5 @@
 #! /bin/bash
-git config --global user.name "Zake-Ahmed"
-git config --global user.email "zake3012@gmail.com"
+
 
 sudo apt update
 
